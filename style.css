@@ -1,0 +1,278 @@
+/* Base style */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #EDEDF4;
+  color: #251351;
+  line-height: 1.6;
+}
+
+/* Header style */
+header {
+  background-color: #FF859D;
+  color: white;
+  padding: 30px;
+  text-align: center;
+  border-bottom: 5px solid #F7A778;
+  font-size: 1.5rem;
+}
+
+/* nav bar styling */
+nav ol {
+  display: flex;
+  justify-content: space-around;
+  max-width: 1000px;
+  margin: 20px auto;
+  padding: 0;
+  list-style-type: none;
+  flex-wrap: wrap;
+}
+
+nav ol li {
+  flex-grow: 1;
+  text-align: center;
+}
+
+nav ol li a {
+  display: block;
+  color: white;
+  font-size: 1.2rem;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 10px;
+  margin: 5px;
+  background-color: #FA9EB0;
+  border-radius: 5px;
+}
+
+nav ol li a:hover {
+  background-color: #F7A778;
+}
+
+/* hero styling */
+.game {
+  text-align: center;
+  padding: 40px;
+  margin: 20px auto;
+  background-color: white;
+  border-radius: 15px;
+  font-size: 1rem;
+  max-width: 800px;
+}
+
+/* game grid styling */
+.game-preview {
+  padding: 40px;
+  margin: 20px auto;
+  background-color: white;
+  border-radius: 15px;
+  max-width: 1100px;
+}
+
+.games-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.game-card {
+  background-color: #FBD0B1;
+  border: 2px solid #FA9EB0;
+  border-radius: 15px;
+  padding: 20px;
+  width: 280px;
+  text-align: center;
+}
+
+.game-card h4 {
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+  color: #251351;
+}
+
+.game-card p {
+  font-size: 1rem;
+  margin-bottom: 15px;
+}
+
+.game-card a {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #FF859D;
+  color: white;
+  border-radius: 50px;
+  font-weight: bold;
+}
+
+.game-card a:hover {
+  background-color: #F7A778;
+}
+
+/* footer styling */
+footer {
+  text-align: center;
+  padding: 20px;
+  background-color: #251351;
+  color: white;
+  margin-top: auto;
+}
+
+/* game page styling */
+main section {
+  padding: 40px;
+  margin: 20px auto;
+  background-color: white;
+  border-radius: 15px;
+  max-width: 700px;
+  text-align: center;
+}
+
+main section h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+main section p {
+  font-size: 1rem;
+  margin-bottom: 20px;
+}
+
+.game-launch-button {
+  display: inline-block;
+  padding: 12px 25px;
+  background-color: #FA9EB0;
+  color: white;
+  font-weight: bold;
+  border-radius: 30px;
+  text-decoration: none;
+}
+
+/* response design */
+@media screen and (max-width: 768px) {
+  .games-grid {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  nav ol {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  nav ol li {
+    width: 100%;
+  }
+}
+
+/* styling for profile container */
+.profile-container {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* styling for rps choices */
+.choice-btn {
+  background-color: #FF708D;
+  color: white;
+  border: none;
+  border-radius: 40px;
+  padding: 20px 40px;
+  font-size: 1.3rem;
+  margin: 15px;
+  min-width: 180px;
+}
+
+/* hover for rps buttons */
+.choice-btn:hover {
+  background-color: #FA9EB0;
+}
+
+/* guessbox styling */
+#guessForm {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+  margin-top: 20px;
+}
+
+#guessInput {
+  width: 60%;
+  padding: 12px;
+  font-size: 1.1rem;
+  border: 2px solid #FA9EB0;
+  border-radius: 25px;
+  text-align: center;
+  background-color: #FFF0F5;
+  color: #251351;
+  outline: none;
+}
+
+#guessInput:focus {
+  border-color: #FF859D;
+}
+
+#feedback {
+  margin-top: 20px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #251351;
+}
+
+#attempts {
+  font-weight: bold;
+  color: #FF708D;
+}
+
+/* click challenge page styling */
+#clickBtn{
+  display: inline-block;
+  padding: 20px 40px;
+  background-color: #FA9EB0;
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+  border-radius: 30px;
+  border: none;
+}
+
+#resetBtn {
+  display: inline-block;
+  background-color: #FA9EB0;
+  padding: 15px 25px;
+  color: white;
+  font-weight: bold;
+  border: none;
+}
+
+
+
+/* styling timer and score for click page and rps */
+#time,
+#score {
+  font-weight: bold;
+  color: #FF708D;
+  font-size: 1.2rem;
+}
+
+#playerChoice,
+#computerChoice,
+#result {
+  font-size: 1.2rem;
+  margin: 10px 0;
+  color: #251351;
+}
+
+#result span {
+  color: #FF708D;
+  font-weight: bold;
+}

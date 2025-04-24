@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Click Challenge</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1> Click Challenge</h1>
+    <!-- Add links in nav bar -->
+    <nav>
+      <ol>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="games.html">Games</a></li>
+        <li><a href="profile.html">Profile</a></li>
+      </ol>
+    </nav>
+  </header>
+
+  <main>
+    <section>
+      <h2>Click as fast as you can!</h2>
+      <!-- Display time remaining -->
+      <p> Time Remaining: <span id="time">10</span> seconds</p>
+      <!-- Display click count -->
+      <p> Clicks: <span id="score">0</span></p>
+      <!--  Buttons for game -->
+      <button id="clickBtn" class="game-launch-button">Click!</button>
+      <br/><br/>
+      <button id="resetBtn" class="game-launch-button" style="background-color:#F7A778">Reset</button>
+    </section>
+  </main>
+
+
+<footer>
+    <p>&copy; 2025</p>
+  </footer>
+
+  <script>
+    // Initalize variables
+    let timeLeft = 10;
+    let score = 0;
+    let timer;
+    let gameActive = false;
+  
+    // Elements in the DOM
+    const timeDisplay = document.getElementById("time");
+    const scoreDisplay = document.getElementById("score");
+    const clickBtn = document.getElementById("clickBtn");
+    const resetBtn = document.getElementById("resetBtn");
+  
+    // When button is clicked, increase score count
+    function handleClick() {
+    if (!gameActive) return;
+    score++;
+    scoreDisplay.textContent = score;
+    }
+
+    clickBtn.addEventListener("click", handleClick);
+
+  
+    // When reset button is clicked, reset game
+    resetBtn.addEventListener("click", resetGame);
+  
+
+    // Function to start game
+    function startGame() {
+      gameActive = true;
+      clickBtn.disabled = false;
+  
+      // Countdown timer
+      timer = setInterval(() => {
+        timeLeft--;
+        timeDisplay.textContent = timeLeft;
+  
+        // End game when timer reaches 0
+        if (timeLeft === 0) {
+          clearInterval(timer);
+          gameActive = false;
+          clickBtn.disabled = true;
+  
+          // Save high score if it's a new record
+          const highScore = parseInt(localStorage.getItem("click-challenge-score")) || 0;
+          if (score > highScore) {
+            localStorage.setItem("click-challenge-score", score);
+          }
+  
+          // Show score
+          alert(`Time's up! You got ${score} clicks.`);
+        }
+        // Runs by second
+      }, 1000);
+    }
+  
+    // Function to reset game
+    function resetGame() {
+      clearInterval(timer);
+      timeLeft = 10;
+      score = 0;
+      timeDisplay.textContent = timeLeft;
+      scoreDisplay.textContent = score;
+      gameActive = false;
+      clickBtn.disabled = false;
+      startGame();
+    }
+  
+    // Start game when the page loads
+     function initGame() {
+      resetGame();
+    }
+
+    window.addEventListener("DOMContentLoaded", initGame);
+
+  </script>
+  
+</body>
+</html>
+

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Profile</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <header>
+    <h1>Your Profile</h1>
+    <!-- Links to pages in nav -->
+    <nav>
+      <ol>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="games.html">Games</a></li>
+        <li><a href="profile.html">Profile</a></li>
+      </ol>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Profile name and bio display -->
+    <section id="profileFormSection">
+      <h2>Set Up Your Profile</h2>
+      <form id="profileForm">
+        <label for="name">Name:</label><br/>
+        <input type="text" id="name" required /><br/><br/>
+
+        <label for="bio">Bio:</label><br/>
+        <textarea id="bio" rows="2" required></textarea><br/><br/>
+
+        <!-- Submit profile -->
+        <button type="submit" class="game-launch-button" style="background-color: #F7A778;">Save Profile</button>
+      </form>
+    </section>
+
+    <!-- Display profile -->
+    <section id="profileDisplaySection" style="display: none;">
+      <h2>Welcome Back, <span id="displayName"></span>!</h2>
+      <p><strong>Bio:</strong> <span id="displayBio"></span></p>
+      <button id="editProfile" class="game-launch-button" style="background-color: #F7A778;">Edit Profile</button>
+    </section>
+
+    <!-- Display highscores -->
+    <section>
+      <h2> High Scores</h2>
+      <ul id="highScores">
+        <li>Click Challenge: <span id="score-click">0</span></li>
+        <li>Number Guess: <span id="score-guess">0</span></li>
+        <li>Rock Paper Scissors: <span id="score-rps">0</span></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025</p>
+  </footer>
+  <script>
+    // Load scores from localstorage and print them
+    const scores = {
+      'click': localStorage.getItem('click-challenge-score') || 0,
+      'guess': localStorage.getItem('number-guess-score') || 0,
+      'rps': localStorage.getItem('rps-score') || 0
+    };
+  
+    document.getElementById('score-click').textContent = scores.click;
+    document.getElementById('score-guess').textContent = scores.guess;
+    document.getElementById('score-rps').textContent = scores.rps;
+  
+    // Profile form elements
+    const profileForm = document.getElementById('profileForm');
+    const profileFormSection = document.getElementById('profileFormSection');
+    const profileDisplaySection = document.getElementById('profileDisplaySection');
+    const displayName = document.getElementById('displayName');
+    const displayBio = document.getElementById('displayBio');
+    const editProfileBtn = document.getElementById('editProfile');
+  
+    // Function to show the stored profile
+    function displayUserProfile() {
+      const name = localStorage.getItem('userName');
+      const bio = localStorage.getItem('userBio');
+  
+      if (name && bio) {
+        displayName.textContent = name;
+        displayBio.textContent = bio;
+        profileFormSection.style.display = 'none';
+        profileDisplaySection.style.display = 'block';
+      }
+    }
+  
+    // Save profile on form submit
+    profileForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const bio = document.getElementById('bio').value.trim();
+      if (name && bio) {
+        localStorage.setItem('userName', name);
+        localStorage.setItem('userBio', bio);
+        displayUserProfile();
+      }
+    });
+  
+    // Enable profile editing
+    editProfileBtn.addEventListener('click', () => {
+      profileFormSection.style.display = 'block';
+      profileDisplaySection.style.display = 'none';
+    });
+  
+    // Load profile on page load
+    displayUserProfile();
+  </script>
+  

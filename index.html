@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mini Games</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1> Mini Games</h1>
+    <!-- Put links in nav -->
+    <nav>
+        <ol>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="games.html">Games</a></li>
+          <li><a href="profile.html">Profile</a></li>
+        </ol>
+      </nav>
+      
+  </header>
+
+  <main>
+    <!-- Displays user name if logged in -->
+    <section class="game" id="welcomeSection">
+      <h2 id="welcomeMessage"></h2>
+    </section>
+    
+    <section class="game" id="signInPrompt" style="display: none;">
+      <h2>Please Sign In</h2>
+      <p>
+      <a href="profile.html" style="color: #F7A778; font-weight: bold;">set up your profile here</a>.
+      </p>
+
+    
+    </section>
+    <!-- Display games -->
+    <section class="game-preview">
+      <h3>Available Games</h3>
+      <div class="games-grid">
+        <article class="game-card">
+          <h4>Click Challenge</h4>
+          <p>Click the button as many times in 10 seconds!</p>
+          <a href="click_challenge.html">Play</a>
+        </article>
+
+        <article class="game-card">
+          <h4>Number Guessing</h4>
+          <p>Guess the number in the fewest tries!</p>
+          <a href="number_guess.html">Play</a>
+        </article>
+
+        <article class="game-card">
+          <h4>Rock Paper Scissors</h4>
+          <p>Play Rock Paper Scissors against a Com!</p>
+          <a href="rps.html">Play</a>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025</p>
+  </footer>
+  <script>
+    window.addEventListener("DOMContentLoaded", handleUserLoginStatus);
+  
+    // Function to handle the user's login status and display content
+    function handleUserLoginStatus() {
+      const name = localStorage.getItem("userName");
+      const welcomeSection = document.getElementById("welcomeSection");
+      const signInPrompt = document.getElementById("signInPrompt");
+      const welcomeMessage = document.getElementById("welcomeMessage");
+
+      // Check if the user is logged in (if username exists in localstorage)
+      if (name) {
+        welcomeMessage.textContent = `Welcome back, ${name}!`;
+        welcomeSection.style.display = "block";
+        signInPrompt.style.display = "none";
+      } else {
+        welcomeSection.style.display = "none";
+        signInPrompt.style.display = "block";
+      }
+    }
+  </script>
+  
+  
+  
+
+
+
+</body>
+</html>

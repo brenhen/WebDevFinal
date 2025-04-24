@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rock Paper Scissors</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <header>
+    <h1> Rock Paper Scissors</h1>
+    <nav>
+      <ol>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="games.html">Games</a></li>
+        <li><a href="profile.html">Profile</a></li>
+      </ol>
+    </nav>
+  </header>
+
+  <main>
+    <section>
+      <h2>Choose Your Move!</h2>
+      <div class="choices">
+          <button id="rockBtn" class="choice-btn"><i class="fas fa-hand-rock"></i> Rock</button>
+          <button id="paperBtn" class="choice-btn"><i class="fas fa-hand-paper"></i> Paper</button>
+          <button id="scissorsBtn" class="choice-btn"><i class="fas fa-hand-scissors"></i> Scissors</button>                
+      </div>
+      <p id="playerChoice">Your choice: <span></span></p>
+      <p id="computerChoice">Computer's choice: <span></span></p>
+      <p id="result">Result: <span></span></p>
+      <p id="score">Player: 0 | Computer: 0</p>
+      <button id="resetBtn" class="game-launch-button" style="background-color: #F7A778;">Reset Game</button>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025</p>
+  </footer>
+
+  <script>
+    // Function to start the Rock Paper Scissors game
+    function startRockPaperScissors() {
+      // Initialize scores
+      let playerScore = 0;
+      let computerScore = 0;
+  
+      // Get elements for display
+      const playerChoiceDisplay = document.getElementById("playerChoice");
+      const computerChoiceDisplay = document.getElementById("computerChoice");
+      const resultDisplay = document.getElementById("result");
+      const scoreDisplay = document.getElementById("score");
+      const resetBtn = document.getElementById("resetBtn");
+  
+      // Save all possible choices
+      const choices = ["rock", "paper", "scissors"];
+  
+      // Randomly select from array
+      function getComputerChoice() {
+        return choices[Math.floor(Math.random() * 3)];
+      }
+  
+      // Function to determine who won
+      function determineWinner(playerChoice, computerChoice) {
+        if (playerChoice === computerChoice) {
+          return "It's a tie!";
+        } else if (
+          (playerChoice === "rock" && computerChoice === "scissors") ||
+          (playerChoice === "scissors" && computerChoice === "paper") ||
+          (playerChoice === "paper" && computerChoice === "rock")
+        ) {
+          playerScore++;
+  
+          // Update high score in localstorageif its a new highscore
+          const highScore = parseInt(localStorage.getItem("rps-score")) || 0;
+          if (playerScore > highScore) {
+            localStorage.setItem("rps-score", playerScore);
+          }
+  
+          // Return winner
+          return "You win!";
+        } else {
+          computerScore++;
+          return "Computer wins!";
+        }
+      }
+  
+      // Handle the game logic to play rps
+      function playGame(playerChoice) {
+        // Get com choice
+        const computerChoice = getComputerChoice();
+        playerChoiceDisplay.innerHTML = `Your choice: <span>${playerChoice}</span>`;
+        computerChoiceDisplay.innerHTML = `Computer's choice: <span>${computerChoice}</span>`;
+        // Get winner
+        const result = determineWinner(playerChoice, computerChoice);
+        resultDisplay.innerHTML = `Result: <span>${result}</span>`;
+        // Update score
+        scoreDisplay.innerHTML = `Player: ${playerScore} | Computer: ${computerScore}`;
+      }
+  
+      // event listeners for buttons for player choices
+      document.getElementById("rockBtn").addEventListener("click", () => playGame("rock"));
+      document.getElementById("paperBtn").addEventListener("click", () => playGame("paper"));
+      document.getElementById("scissorsBtn").addEventListener("click", () => playGame("scissors"));
+  
+      // Reset button logic
+      resetBtn.addEventListener("click", () => {
+        playerScore = 0;
+        computerScore = 0;
+        scoreDisplay.innerHTML = `Player: ${playerScore} | Computer: ${computerScore}`;
+        resultDisplay.innerHTML = "Result: <span>Start a new game!</span>";
+        playerChoiceDisplay.innerHTML = "Your choice: <span></span>";
+        computerChoiceDisplay.innerHTML = "Computer's choice: <span></span>";
+      });
+    }
+  
+    // Run the game once the page is loaded
+    window.addEventListener("DOMContentLoaded", startRockPaperScissors);
+  </script>
+  

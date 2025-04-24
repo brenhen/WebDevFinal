@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Number Guessing Game</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1> Number Guessing Game</h1>
+    <!-- Links in nav -->
+    <nav>
+      <ol>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="games.html">Games</a></li>
+        <li><a href="profile.html">Profile</a></li>
+      </ol>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Guess a number from 1-100 layout -->
+    <section>
+      <h2>Guess a number between 1 and 100</h2>
+      <form id="guessForm">
+        <input type="number" id="guessInput" min="1" max="100" required placeholder="Enter your guess" />
+        <button type="submit" class="game-launch-button">Guess</button>
+      </form>
+      <p id="feedback"> Waiting for your guess</p>
+      <p>Attempts: <span id="attempts">0</span></p>
+      <button id="restartBtn" class="game-launch-button" style="background-color: #F7A778;">Restart Game</button>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025</p>
+  </footer>
+
+  <script>
+    // random number to guess
+    let num;
+    let attempts = 0;
+  
+    // Get DOM elements
+    const guessForm = document.getElementById("guessForm");
+    const guessInput = document.getElementById("guessInput");
+    const feedback = document.getElementById("feedback");
+    const attemptsDisplay = document.getElementById("attempts");
+    const restartBtn = document.getElementById("restartBtn");
+  
+    // Function to start a new game
+    function startNewNumberGuessingGame() {
+      // Generate random number 1-100
+      num = Math.floor(Math.random() * 100) + 1;
+      // Reset attempts count
+      attempts = 0;
+      feedback.textContent = " Waiting for your guess...";
+      attemptsDisplay.textContent = attempts;
+      // Clear input
+      guessInput.value = "";
+      guessInput.disabled = false;
+    }
+  
+    // Function to handle guess submissions
+    function handleGuessSubmission(e) {
+      // Prevent form from refreshing page
+      e.preventDefault();
+      // Get guess
+      const guess = Number(guessInput.value);
+  
+      // Validate guess
+      if (guess < 1 || guess > 100 || isNaN(guess)) {
+        // Guess handling
+        feedback.textContent = " Please enter a number between 1 and 100!";
+        return;
+      }
+  
+      // Update attempt count
+      attempts++;
+      attemptsDisplay.textContent = attempts;
+  
+      // Check guess against the random number
+      if (guess === num) {
+        feedback.textContent = `Correct! You guessed it in ${attempts} tries.`;
+        // Disable input
+        guessInput.disabled = true;
+  
+        // Store score if its a highscore
+        const highScore = parseInt(localStorage.getItem("number-guess-score")) || Infinity;
+        if (attempts < highScore) {
+          localStorage.setItem("number-guess-score", attempts);
+        }
+  
+      } else if (guess < num) {
+        feedback.textContent = "Too low! Try a higher number.";
+      } else {
+        feedback.textContent = "Too high! Try a lower number.";
+      }
+  
+      // Clear input after each guess
+      guessInput.value = "";
+    }
+  
+    // Event Listeners
+    guessForm.addEventListener("submit", handleGuessSubmission);
+    restartBtn.addEventListener("click", startNewNumberGuessingGame);
+    window.addEventListener("DOMContentLoaded", startNewNumberGuessingGame);
+  </script>
+  
